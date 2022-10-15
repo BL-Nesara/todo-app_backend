@@ -36,6 +36,7 @@ module.exports.updateTodo = async (req, res) => {
   try {
     const filterId = req.body._id;
     const updateText = req.body.text;
+    const completeTodo = req.body.completeTodo;
     const updateTodo = await todoModel.findOneAndUpdate(
       { _id: filterId },
       { text: updateText },

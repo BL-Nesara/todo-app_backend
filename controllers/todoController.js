@@ -73,6 +73,9 @@ module.exports.searchTodo = async (req, res) => {
     const searchResult = await todoModel.find({
       text: { $regex: `.*${searchText}.*` },
     });
+    if (!searchResult) {
+      return res.status(400).json({ message: "Todo Not Found" });
+    }
     return res.status(200).json({
       statusCode: 200,
       message: "filtered data",

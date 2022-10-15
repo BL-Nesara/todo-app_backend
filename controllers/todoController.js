@@ -66,3 +66,21 @@ module.exports.deleteTodo = async (req, res) => {
       .json({ statusCode: 500, message: "server error" + error });
   }
 };
+
+module.exports.searchTodo = async (req, res) => {
+  try {
+    const searchText = req.body.searchText;
+    const searchResult = await todoModel.find({
+      text: { $regex: `.*${searchText}.*` },
+    });
+    return res.status(200).json({
+      statusCode: 200,
+      message: "filtered data",
+      data: searchResult,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ statusCode: 500, message: "server error" + error });
+  }
+};
